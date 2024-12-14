@@ -5,6 +5,12 @@ build/
 dist/
 wheels/
 *.egg-info
-
+.idea
+.ruff_cache
 # Virtual environments
 .venv
+
+# py files
+mainn.py 
+mod.py
+test.py
