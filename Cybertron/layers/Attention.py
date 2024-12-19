@@ -4,6 +4,7 @@ import math
 from typing import Final, TypeVar
 
 import torch
+from PositionEncondings.alibi import ALiBi
 from PositionEncondings.relativePE import RelativePositionEncoding as Rel_PE
 from PositionEncondings.rotaryPE import RotaryPositionEncoding
 from torch import Tensor, nn
@@ -22,7 +23,7 @@ class MultiHeadedAttention(nn.Module):
         super().__init__()
         assert (
             d_model % n_heads == 0
-        ), f"d_model ({d_model}) must be divisible by h ({n_heads})"
+        ), f"d_model ({d_model}) must be divisible by n_heads ({n_heads})"
         self.n_heads: Final[int] = n_heads
         self.d_model: Final[int] = d_model
         self.d_k: Final[int] = d_model // n_heads
@@ -168,3 +169,32 @@ class RotaryMultiHeadAttention(MultiHeadedAttention):
         x = x.transpose(1, 2).contiguous().view(nbatches, -1, self.n_heads * self.d_k)
 
         return self.linears[-1](x)
+
+
+class AliBiMultiHeadAttention(MultiHeadedAttention):
+    def __init__(
+        self,
+        n_heads: int,
+        d_model: int,
+        dropout: float = 0.1,
+    ) -> None:
+        super().__init__(n_heads, d_model, dropout)
+        self.alibi = ALiBi(self.n_heads)
+
+    def forward(
+        self, query: Tensor, key: Tensor, value: Tensor, mask: Tensor | None = None
+    ) -> Tensor:
+        batch_size, query_len, _ = query.size()
+
+        query, key, value = self._project_qkv(query, key, value, batch_size)
+
+        # Scaled dot-product attention
+        scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(self.d_k)
+
+        # Add ALiBi bias
+        alibi_bias = self.alibi(query_len, query.device)  # Get ALiBi bias
+        scores = scores + alibi_bias
+
+        # Compute attention probabilities and output
+        x, self.attn = self._attention_forward(query, key, value, mask)
+        return self._combine_heads(x, batch_size)

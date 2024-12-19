@@ -10,7 +10,7 @@ repos:
       - id: check-added-large-files
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.7.4
+    rev: v0.8.4
     hooks:
       - id: ruff
         types: [python]
@@ -20,15 +20,8 @@ repos:
           - --ignore 
           - N999,N806,F401  # Ignore module and variable naming conventions
       - id: ruff-format
-        types: [python] 
-        
-
-  - repo: https://github.com/psf/black
-    rev: 24.10.0
-    hooks:
-      - id: black
-        language_version: python3.12
         types: [python]
+
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
