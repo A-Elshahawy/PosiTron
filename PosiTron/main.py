@@ -3,7 +3,8 @@ import sys
 
 import torch
 from layers.utils import subsequent_mask
-from models.model import Bumblebee, Megatron, OptimusPrime, Starscream
+
+from .models import Bumblebee, Megatron, OptimusPrime, Starscream
 
 sys.path.append(r"D:\Projects\transformer")
 
