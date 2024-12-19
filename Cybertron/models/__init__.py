@@ -1,3 +1,4 @@
-from .model import make_model
+# from .model import make_model
+from .model import Bumblebee, Megatron, OptimusPrime, Starscream
 
-all = ["make_model"]
+all = ["OptimusPrime", "Megatron", "Bumblebee", "Starscream"]

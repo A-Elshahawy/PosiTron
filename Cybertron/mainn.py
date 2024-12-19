@@ -1,7 +1,7 @@
 import torch
 
 # from .models import make_model
-from factories.ModelFactory import create_transformer
+from factory.ModelFactory import create_transformer
 
 # First, let's set up some example parameters
 src_vocab_size = 10000  # Source vocabulary size
