@@ -25,6 +25,7 @@ def test_inference():
             [ys, torch.empty(1, 1).type_as(src.data).fill_(next_word)], dim=1
         )
     name = f"\033[1;32m\033[0;33m{test_model.__class__.__name__.capitalize()}\033[1;32m Transformer inference!\033[0m"
+
     return name, f":: \n \t Example Untrained Model Prediction: {ys.squeeze().tolist()}"
 
 
