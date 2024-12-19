@@ -5,6 +5,7 @@ from typing import Literal, TypeVar
 import torch
 import torch.nn as nn
 from layers.Attention import AbsoluteMultiHeadedAttention as Abs_MHA
+from layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
 from layers.Attention import RelativeMultiHeadAttention as Rel_MHA
 from layers.Attention import RotaryMultiHeadAttention as Rope_MHA
 from layers.core import EncoderDecoder, Generator
@@ -165,17 +166,25 @@ class RotaryTransformer(AbstractTransformer):
         return Rope_MHA, Rope_MHA, Rope_MHA
 
 
+class AliBiTransformer(AbstractTransformer):
+    """Transformer with AliBi Positional Encoding."""
+
+    def _get_attention_classes(self):
+        return AliBi_MHA, AliBi_MHA, AliBi_MHA
+
+
 class TransformerFactory:
     _transformer_type = {
         "absolute": AbsoluteTransformer,
         "relative": RelativeTransformer,
         "rotary": RotaryTransformer,
+        "alibi": AliBiTransformer,
     }
 
     @classmethod
     def _create(
         cls,
-        pe_type: Literal["absolute", "relative", "rotary"],
+        pe_type: Literal["absolute", "relative", "rotary", "alibi"],
         src_vocab_size: int,
         tgt_vocab_size: int,
         **kwargs,

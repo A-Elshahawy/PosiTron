@@ -184,17 +184,26 @@ class AliBiMultiHeadAttention(MultiHeadedAttention):
     def forward(
         self, query: Tensor, key: Tensor, value: Tensor, mask: Tensor | None = None
     ) -> Tensor:
-        batch_size, query_len, _ = query.size()
+        """
+        Compute attention with ALiBi bias.
+
+        Args:
+            query: Query tensor with shape (batch_size, query_len, d_model)
+            key: Key tensor with shape (batch_size, key_len, d_model)
+            value: Value tensor with shape (batch_size, key_len, d_model)
+            mask: Mask tensor with shape (batch_size, query_len, key_len)
+
+        Returns:
+            Output tensor with shape (batch_size, query_len, d_model)
+        """
+        batch_size = query.size(0)
+        query_len = query.size(1)
+        key_len = key.size(1)
 
         query, key, value = self._project_qkv(query, key, value, batch_size)
-
-        # Scaled dot-product attention
         scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(self.d_k)
-
-        # Add ALiBi bias
-        alibi_bias = self.alibi(query_len, query.device)  # Get ALiBi bias
+        alibi_bias = self.alibi(query_len, key_len)
         scores = scores + alibi_bias
 
-        # Compute attention probabilities and output
         x, self.attn = self._attention_forward(query, key, value, mask)
         return self._combine_heads(x, batch_size)

@@ -1,19 +1,20 @@
 import math
+from typing import List, Optional
 
 import torch
 
 type Tensor = torch.Tensor
 
 
-class AliBi(torch.nn.Module):
+class ALiBi(torch.nn.Module):
     def __init__(self, n_heads: int = 8, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.slope = self._get_slopes(self, n_heads)
+        self.slope = self._get_slopes(n_heads)
         self.register_buffer(
             "slopes_tensor", torch.tensor(self.slope).view(1, n_heads, 1, 1)
         )
 
-    def _get_slopes(self, n):
+    def _get_slopes(self, n: int) -> List[float]:
         """
         Generates a list of slopes for ALiBi attention biases.
 
@@ -41,12 +42,17 @@ class AliBi(torch.nn.Module):
                 ]
             )
 
-    def forward(self, seq_len: int) -> Tensor:
-        positions = torch.arange(0, seq_len, dtype=torch.float32)
+    def forward(self, query_len: int, key_len: Optional[int] = None) -> Tensor:
+        if key_len is None:
+            key_len = query_len
+
+        query_pos = torch.arange(0, query_len, dtype=torch.float32)
+        key_pos = torch.arange(0, key_len, dtype=torch.float32)
+
+        # Create distance matrix between query and key positions
         alibi_bias = (
-            (positions[:, None] + positions[None, :]).abs().unsqueeze(0).unsqueeze(0)
+            (query_pos[:, None] - key_pos[None, :]).abs().unsqueeze(0).unsqueeze(0)
         )
 
-        alibi = -alibi_bias * self.slopes_tensor
-
-        return alibi
+        # Apply slopes and return
+        return -alibi_bias * self.slopes_tensor

@@ -35,7 +35,7 @@ def test_inference(pe_type="absolute"):
 
 
 def main():
-    pe_type = ["absolute", "relative", "rotary"]
+    pe_type = ["absolute", "relative", "rotary", "alibi"]
     for p in pe_type:
         print(
             " " * 20
