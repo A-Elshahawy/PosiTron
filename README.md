@@ -24,7 +24,7 @@ This library aims to help users learn about:
 ## Core Features
 
 * **Diverse Positional Encodings:** Implements multiple positional encoding methods in a flexible and modular way.
-* **Pre-configured Transformer Models:** Includes pre-configured models like `OptimusPrime`, `Soundwave`, `Drift`, and `Shockwave`, each with different positional encodings and default settings.
+* **Pre-configured Transformer Models:** Includes pre-configured models like `OptimusPrime`, `Bumblebee`, `Megatron `and `Starscream`, each with different positional encodings and default settings.
 * **Modular Components:**  Provides separate classes for attention mechanisms, positional encodings, layers, and model creation.
 * **Clear Code:** Designed for readability and ease of understanding.
 * **Well-documented code:** Designed to be easy to learn.
