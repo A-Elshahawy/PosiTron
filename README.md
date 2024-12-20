@@ -137,5 +137,5 @@ MIT License
 
 ## Contact
 
-* **LinkedIn:** [Ahmed Elshahawy](linkedin.com/in/ahmed-elshahawy-a42149218)
-* **Gmail:** [Ahmed ELshahawy ](ahmedelshahawy078@gmail.ocm)
+* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/linkedin.com/in/ahmed-elshahawy-a42149218/)
+* [![Gmail](https://img.shields.io/badge/Gmail-Email-red?style=flat&logo=gmail)](mailto:ahmedelshahawy078@gmail.com)
