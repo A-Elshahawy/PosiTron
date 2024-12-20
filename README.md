@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-**PosiTron** is a Python library designed as an educational resource for exploring Transformer models and various positional encoding mechanisms. Inspired by the concept of "position" in transformers, and the dynamic and powerful "-tron" from the Transformers franchise, this library provides a hands-on approach to learning about these complex architectures.
+**PosiTron** : is a Python library designed as an educational resource for exploring Transformer models and various positional encoding mechanisms. Inspired by the concept of "position" in transformers, and the dynamic and powerful "-tron" from the Transformers franchise, this library provides a hands-on approach to learning about these complex architectures.
 
 **This library is intended for educational purposes only.**
 
@@ -81,10 +81,10 @@ Bumblebee = Bumblebee(n_heads=2, n_layers=3)
 ```python
 from ModelFactory import create_transformer
 
-alibi_model = create_transformer(pe_type='alibi', d_model=256, n_heads=4, src_vocab_size=1000, tgt_vocab_size=1000)
-absolute_model = create_transformer(pe_type='absolute', d_model=512, n_heads=8, src_vocab_size=1000, tgt_vocab_size=1000)
-relative_model = create_transformer(pe_type='relative', d_model=512, n_heads=8, max_length=5000, src_vocab_size=1000, tgt_vocab_size=1000)
-rotary_model = create_transformer(pe_type='rotary', d_model=512, n_heads=8, max_length=5000, src_vocab_size=1000, tgt_vocab_size=1000)
+bumblebee = create_transformer(pe_type='alibi', d_model=256, n_heads=4, src_vocab_size=1000, tgt_vocab_size=1000)
+optimus = create_transformer(pe_type='absolute', d_model=512, n_heads=8, src_vocab_size=1000, tgt_vocab_size=1000)
+megatron = create_transformer(pe_type='relative', d_model=512, n_heads=8, max_length=5000, src_vocab_size=1000, tgt_vocab_size=1000)
+starcream = create_transformer(pe_type='rotary', d_model=512, n_heads=8, max_length=5000, src_vocab_size=1000, tgt_vocab_size=1000)
 ```
 
 ## Package Structure
