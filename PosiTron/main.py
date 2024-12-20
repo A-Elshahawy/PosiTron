@@ -14,7 +14,7 @@ def test_inference():
     memory = test_model.encode(src, src_mask)
 
     ys = torch.zeros(1, 1).type_as(src)
-    for i in range(src.size(1)):
+    for _ in range(src.size(1)):
         out = test_model.decode(
             memory, src_mask, ys, subsequent_mask(ys.size(1)).type_as(src.data)
         )
