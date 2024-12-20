@@ -137,5 +137,9 @@ MIT License
 
 ## Contact
 
-* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/linkedin.com/in/ahmed-elshahawy-a42149218/)
+You can find me on :[
+](https://www.linkedin.com/in/ahmed-elshahawy-a42149218/)
+
+* [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ahmed-elshahawy-a42149218/)
+
 * [![Gmail](https://img.shields.io/badge/Gmail-Email-red?style=flat&logo=gmail)](mailto:ahmedelshahawy078@gmail.com)
