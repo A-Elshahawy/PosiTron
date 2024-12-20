@@ -1,7 +1,6 @@
 import torch
 from layers.utils import subsequent_mask
-from ModelFactory import create_transformer
-from models import Bumblebee, Megatron, OptimusPrime, Starscream
+from models import Starscream
 
 
 def test_inference():
