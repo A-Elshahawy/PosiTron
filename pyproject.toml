@@ -1,7 +1,7 @@
 [project]
-name = "transformer"
+name = "PosiTron"
 version = "0.1.0"
-description = "Implenment Attention is All you need paper"
+description = "Implenment Attention is All you need paper with different positional encodings"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
