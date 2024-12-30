@@ -14,7 +14,7 @@ from .utils import clone
 T = TypeVar("T", bound=nn.Module)
 
 
-class MultiHeadedAttention(nn.Module):
+class MultiHeadAttention(nn.Module):
     """
     Base class for multi-headed attention mechanisms.
     """
@@ -60,7 +60,7 @@ class MultiHeadedAttention(nn.Module):
         return self.linears[-1](x)
 
 
-class AbsoluteMultiHeadedAttention(MultiHeadedAttention):
+class AbsoluteMultiHeadAttention(MultiHeadAttention):
     """
     Multi-headed attention with absolute position encoding.
     """
@@ -79,7 +79,7 @@ class AbsoluteMultiHeadedAttention(MultiHeadedAttention):
         return self._combine_heads(x, batch_size)
 
 
-class RelativeMultiHeadAttention(MultiHeadedAttention):
+class RelativeMultiHeadAttention(MultiHeadAttention):
     """
     Multi-headed attention with relative position encoding.
     """
@@ -137,7 +137,7 @@ class RelativeMultiHeadAttention(MultiHeadedAttention):
         return output
 
 
-class RotaryMultiHeadAttention(MultiHeadedAttention):
+class RotaryMultiHeadAttention(MultiHeadAttention):
     """
     Multi-headed attention with rotary position encoding.
     """
@@ -171,7 +171,7 @@ class RotaryMultiHeadAttention(MultiHeadedAttention):
         return self.linears[-1](x)
 
 
-class AliBiMultiHeadAttention(MultiHeadedAttention):
+class AliBiMultiHeadAttention(MultiHeadAttention):
     def __init__(
         self,
         n_heads: int,
