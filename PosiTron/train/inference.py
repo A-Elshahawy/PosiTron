@@ -5,7 +5,7 @@ import torch.nn as nn
 from layers.utils import subsequent_mask
 
 T = TypeVar("T", bound=nn.Module)
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 class GreedyDecoder:

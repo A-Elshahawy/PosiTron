@@ -14,7 +14,7 @@ from layers.Encoder import Encoder, EncoderLayer
 from layers.utils import Embeddings, PositionWiseFeedForward
 
 T = TypeVar("T", bound=nn.Module)
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 class TransformerConfig:

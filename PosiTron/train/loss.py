@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 
 T = TypeVar("T", bound=nn.Module)
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 class LabelSmoothing(nn.Module):
