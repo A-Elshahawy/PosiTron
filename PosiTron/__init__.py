@@ -1,4 +1,4 @@
-from .layers.Attention import AbsoluteMultiHeadedAttention as Abs_MHA
+from .layers.Attention import AbsoluteMultiHeadAttention as Abs_MHA
 from .layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
 from .layers.Attention import RelativeMultiHeadAttention as Rel_MHA
 from .layers.Attention import RotaryMultiHeadAttention as Rope_MHA
