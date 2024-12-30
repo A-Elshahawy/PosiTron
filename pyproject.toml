@@ -5,13 +5,6 @@ description = "Implenment Attention is All you need paper with different positio
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "black>=24.10.0",
-    "flake8>=7.1.1",
-    "gputil>=1.4.0",
-    "pandas>=2.2.3",
-    "pre-commit>=4.0.1",
-    "ruff>=0.7.3",
-    "spacy>=3.8.2",
     "torch>=2.5.1",
     "torchtext>=0.18.0",
     "tqdm>=4.67.0",
