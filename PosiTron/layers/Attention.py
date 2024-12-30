@@ -4,10 +4,11 @@ import math
 from typing import Final, TypeVar
 
 import torch
-from PositionEncondings.alibi import ALiBi
-from PositionEncondings.relativePE import RelativePositionEncoding as Rel_PE
-from PositionEncondings.rotaryPE import RotaryPositionEncoding
 from torch import Tensor, nn
+
+from PosiTron.PositionEncondings.alibi import ALiBi
+from PosiTron.PositionEncondings.relativePE import RelativePositionEncoding as Rel_PE
+from PosiTron.PositionEncondings.rotaryPE import RotaryPositionEncoding
 
 from .utils import clone
 
