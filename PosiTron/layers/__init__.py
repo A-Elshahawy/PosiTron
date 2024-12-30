@@ -7,7 +7,7 @@ from .core import EncoderDecoder, Generator
 from .Decoder import Decoder, DecoderLayer
 from .Encoder import Encoder, EncoderLayer
 
-all = [
+__all__ = [
     "AbsoluteMultiHeadedAttention",
     "RelativeMultiHeadAttention",
     "RotaryMultiHeadAttention",
