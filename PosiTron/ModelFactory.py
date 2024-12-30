@@ -5,7 +5,7 @@ from typing import Literal, TypeVar
 import torch
 import torch.nn as nn
 
-from PosiTron.layers.Attention import AbsoluteMultiHeadedAttention as Abs_MHA
+from PosiTron.layers.Attention import AbsoluteMultiHeadAttention as Abs_MHA
 from PosiTron.layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
 from PosiTron.layers.Attention import RelativeMultiHeadAttention as Rel_MHA
 from PosiTron.layers.Attention import RotaryMultiHeadAttention as Rope_MHA
