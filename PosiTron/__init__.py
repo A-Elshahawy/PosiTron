@@ -1,4 +1,5 @@
 from .layers.Attention import AbsoluteMultiHeadedAttention as Abs_MHA
+from .layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
 from .layers.Attention import RelativeMultiHeadAttention as Rel_MHA
 from .layers.Attention import RotaryMultiHeadAttention as Rope_MHA
 from .layers.core import EncoderDecoder, Generator
@@ -11,7 +12,9 @@ from .layers.utils import (
     SubLayerConnection,
     clone,
 )
+from .models import Bumblebee, Megatron, OptimusPrime, Starscream
 from .PositionEncondings.absolutePE import AbsolutePositionEncoding
+from .PositionEncondings.alibi import ALiBi
 from .PositionEncondings.relativePE import RelativePositionEncoding
 from .PositionEncondings.rotaryPE import RotaryPositionEncoding
 
@@ -19,6 +22,7 @@ __all__ = [
     "Abs_MHA",
     "Rel_MHA",
     "Rope_MHA",
+    "AliBi_MHA",
     "Decoder",
     "DecoderLayer",
     "Encoder",
@@ -28,9 +32,14 @@ __all__ = [
     "AbsolutePositionEncoding",
     "RelativePositionEncoding",
     "RotaryPositionEncoding",
+    "ALiBi",
     "clone",
     "LayerNorm",
     "SubLayerConnection",
     "Embeddings",
     "PositionWiseFeedForward",
+    "Bumblebee",
+    "Megatron",
+    "OptimusPrime",
+    "Starscream",
 ]
