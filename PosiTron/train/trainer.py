@@ -1,7 +1,12 @@
 import time
-from typing import TypeVar
+from typing import Any, Callable, Optional, TypeVar
 
+import torch
 import torch.nn as nn
+import tqdm
+from torch.optim import Optimizer
+from torch.optim.lr_scheduler import _LRScheduler
+from torch.utils.data import DataLoader
 
 T = TypeVar("T", bound=nn.Module)
 
@@ -21,31 +26,78 @@ class Trainer:
 
     @staticmethod
     def run_epoch(
-        data_iter,
-        model,
-        loss_fn,
-        optimizer,
-        scheduler=None,
-        mode="train",
-        accumulate_iter=1,
-        train_state=None,
-    ):
+        data_loader: DataLoader,
+        model: T,
+        loss_fn: Callable[
+            [torch.Tensor, torch.Tensor, int], tuple[torch.Tensor, torch.Tensor]
+        ],
+        optimizer: Optimizer,
+        scheduler: Optional[_LRScheduler] = None,
+        mode: str = "train",
+        accumulate_iter: int = 1,
+        train_state: Optional[TrainingState] = None,
+        batch_process_fn: Optional[
+            Callable[
+                [Any],
+                tuple[
+                    torch.Tensor,
+                    torch.Tensor,
+                    torch.Tensor,
+                    torch.Tensor,
+                    int,
+                    torch.Tensor,
+                ],
+            ]
+        ] = None,
+        log_interval: int = 40,
+    ) -> tuple[float, TrainingState]:
+        """
+        Runs one epoch of training or evaluation.
+
+        Args:
+            data_loader: DataLoader providing the data batches.
+            model: The PyTorch model to be trained or evaluated.
+            loss_fn: A callable that computes the loss. It should accept model outputs, target labels, and n_tokens.
+            optimizer: The PyTorch optimizer.
+            scheduler: (Optional) Learning rate scheduler.
+            mode: "train" for training, "eval" for evaluation. Use "train+log" for detailed training.
+            accumulate_iter: Number of batches to accumulate gradients before updating the model.
+            train_state: (Optional) Training state object to track the process.
+            batch_process_fn: (Optional) A function to pre process the batch before giving it to the forward method
+            log_interval: Log details every log_interval batches.
+
+        Returns:
+             A tuple containing the average loss per token and the training state object.
+        """
         train_state = train_state or TrainingState()
         start = time.time()
         total_tokens = total_loss = tokens = n_accumulated = 0
 
-        for i, batch in enumerate(data_iter):
-            output = model.forward(batch.src, batch.tgt, batch.src_mask, batch.tgt_mask)
+        pbar = tqdm(data_loader, desc=f"Epoch {train_state.steps}")
+        for i, batch in enumerate(pbar):
+            if batch_process_fn:
+                src, tgt, src_mask, tgt_mask, n_tokens, tgt_y = batch_process_fn(batch)
+            else:
+                src, tgt, src_mask, tgt_mask, n_tokens, tgt_y = (
+                    batch.src,
+                    batch.tgt,
+                    batch.src_mask,
+                    batch.tgt_mask,
+                    batch.n_tokens,
+                    batch.tgt_y,
+                )
 
-            loss, loss_node = loss_fn(output, batch.tgt_y, batch.n_tokens)
+            output = model.forward(src, tgt, src_mask, tgt_mask)
+
+            loss, loss_node = loss_fn(output, tgt_y, n_tokens)
 
             if mode in ["train", "train+log"]:
                 loss_node.backward()
                 train_state.steps += 1
-                train_state.samples += batch.src.size(0)
-                train_state.n_tokens = batch.n_tokens
+                train_state.samples += src.size(0)
+                train_state.n_tokens = n_tokens
 
-                if i % accumulate_iter == 0:
+                if (i + 1) % accumulate_iter == 0:
                     optimizer.step()
                     optimizer.zero_grad(set_to_none=True)
                     n_accumulated += 1
@@ -55,15 +107,22 @@ class Trainer:
                     scheduler.step()
 
             total_loss += loss_node.item()
-            total_tokens += batch.n_tokens
-            tokens += batch.n_tokens
+            total_tokens += n_tokens
+            tokens += n_tokens
 
-            if i % 40 == 0 and mode in ["train", "train+log"]:
+            pbar.set_postfix(
+                {
+                    "loss": f"{total_loss / (i + 1):.4f}",
+                    "tokens/sec": f"{tokens / (time.time() - start):.2f}",
+                }
+            )
+
+            if (i + 1) % log_interval == 0 and mode in ["train", "train+log"]:
                 lr = optimizer.param_groups[0]["lr"]
                 elapsed = time.time() - start
                 print(
                     f"Epoch Step: {i:6d} | Accumulation Step: {n_accumulated:3d} | "
-                    f"Loss: {loss / batch.n_tokens:6.2f} | "
+                    f"Loss: {loss / n_tokens:6.2f} | "
                     f"Tokens / Sec: {tokens / elapsed:7.1f} | "
                     f"Learning Rate: {lr:6.1e}"
                 )

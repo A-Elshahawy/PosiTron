@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 
 T = TypeVar("T", bound=nn.Module)
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 def clone(module: T, N: int) -> nn.ModuleList:

@@ -1,5 +1,6 @@
 from .Attention import (
-    AbsoluteMultiHeadedAttention,
+    AbsoluteMultiHeadAttention,
+    MultiHeadAttention,
     RelativeMultiHeadAttention,
     RotaryMultiHeadAttention,
 )
@@ -7,8 +8,9 @@ from .core import EncoderDecoder, Generator
 from .Decoder import Decoder, DecoderLayer
 from .Encoder import Encoder, EncoderLayer
 
-all = [
-    "AbsoluteMultiHeadedAttention",
+__all__ = [
+    "MultiHeadAttention",
+    "AbsoluteMultiHeadAttention",
     "RelativeMultiHeadAttention",
     "RotaryMultiHeadAttention",
     "Decoder",

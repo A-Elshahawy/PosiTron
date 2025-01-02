@@ -1,16 +1,19 @@
 import torch
 from layers.utils import subsequent_mask
-from ModelFactory import create_transformer
-from models import Bumblebee, Megatron, OptimusPrime, Starscream
+from models import OptimusPrime
 
 
 def test_inference():
-    test_model = Starscream()
+    test_model = OptimusPrime()
     #  ? OR use ==> test_model = create_transformer(pe_type="absolute", src_vocab_size=12, tgt_vocab_size=12)
     test_model.eval()
     src = torch.LongTensor([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]])
     src_mask = torch.ones(1, 1, src.size(1))
-
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    test_model.to(device)
+    module = test_model
+    module = test_model.modules
+    print(module)
     memory = test_model.encode(src, src_mask)
 
     ys = torch.zeros(1, 1).type_as(src)

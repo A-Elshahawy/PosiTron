@@ -3,7 +3,7 @@ from typing import List, Optional
 
 import torch
 
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 class ALiBi(torch.nn.Module):

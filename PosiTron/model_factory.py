@@ -4,7 +4,7 @@ from typing import Literal, TypeVar
 
 import torch
 import torch.nn as nn
-from layers.Attention import AbsoluteMultiHeadedAttention as Abs_MHA
+from layers.Attention import AbsoluteMultiHeadAttention as Abs_MHA
 from layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
 from layers.Attention import RelativeMultiHeadAttention as Rel_MHA
 from layers.Attention import RotaryMultiHeadAttention as Rope_MHA
@@ -14,7 +14,7 @@ from layers.Encoder import Encoder, EncoderLayer
 from layers.utils import Embeddings, PositionWiseFeedForward
 
 T = TypeVar("T", bound=nn.Module)
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 class TransformerConfig:

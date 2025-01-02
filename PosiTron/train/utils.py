@@ -1,7 +1,7 @@
 import torch
 from layers.utils import subsequent_mask
 
-type Tensor = torch.Tensor
+Tensor = torch.Tensor
 
 
 class Batch:
