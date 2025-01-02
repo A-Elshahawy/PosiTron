@@ -1,4 +1,4 @@
-from model_factory import (
+from PosiTron.model_factory import (
     AbsoluteTransformer,
     AliBiTransformer,
     RelativeTransformer,

@@ -12,7 +12,6 @@ from .layers.utils import (
     SubLayerConnection,
     clone,
 )
-from .model_factory import AbstractTransformer, TransformerFactory, create_transformer
 from .models import Bumblebee, Megatron, OptimusPrime, Starscream
 from .positional_encodings.absolutePE import AbsolutePositionEncoding
 from .positional_encodings.alibi import ALiBi
@@ -43,7 +42,4 @@ __all__ = [
     "Megatron",
     "OptimusPrime",
     "Starscream",
-    "create_transformer",
-    "TransformerFactory",
-    "AbstractTransformer",
 ]
