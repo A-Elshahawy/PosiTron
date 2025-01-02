@@ -4,15 +4,14 @@ from typing import Literal, TypeVar
 
 import torch
 import torch.nn as nn
-
-from PosiTron.layers.Attention import AbsoluteMultiHeadAttention as Abs_MHA
-from PosiTron.layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
-from PosiTron.layers.Attention import RelativeMultiHeadAttention as Rel_MHA
-from PosiTron.layers.Attention import RotaryMultiHeadAttention as Rope_MHA
-from PosiTron.layers.core import EncoderDecoder, Generator
-from PosiTron.layers.Decoder import Decoder, DecoderLayer
-from PosiTron.layers.Encoder import Encoder, EncoderLayer
-from PosiTron.layers.utils import Embeddings, PositionWiseFeedForward
+from layers.Attention import AbsoluteMultiHeadAttention as Abs_MHA
+from layers.Attention import AliBiMultiHeadAttention as AliBi_MHA
+from layers.Attention import RelativeMultiHeadAttention as Rel_MHA
+from layers.Attention import RotaryMultiHeadAttention as Rope_MHA
+from layers.core import EncoderDecoder, Generator
+from layers.Decoder import Decoder, DecoderLayer
+from layers.Encoder import Encoder, EncoderLayer
+from layers.utils import Embeddings, PositionWiseFeedForward
 
 T = TypeVar("T", bound=nn.Module)
 Tensor = torch.Tensor

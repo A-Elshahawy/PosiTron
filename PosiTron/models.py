@@ -1,4 +1,4 @@
-from .ModelFactory import (
+from ModelFactory import (
     AbsoluteTransformer,
     AliBiTransformer,
     RelativeTransformer,

@@ -13,10 +13,10 @@ from .layers.utils import (
     clone,
 )
 from .models import Bumblebee, Megatron, OptimusPrime, Starscream
-from .PositionEncondings.absolutePE import AbsolutePositionEncoding
-from .PositionEncondings.alibi import ALiBi
-from .PositionEncondings.relativePE import RelativePositionEncoding
-from .PositionEncondings.rotaryPE import RotaryPositionEncoding
+from .positional_encodings.absolutePE import AbsolutePositionEncoding
+from .positional_encodings.alibi import ALiBi
+from .positional_encodings.relativePE import RelativePositionEncoding
+from .positional_encodings.rotaryPE import RotaryPositionEncoding
 
 __all__ = [
     "Abs_MHA",
