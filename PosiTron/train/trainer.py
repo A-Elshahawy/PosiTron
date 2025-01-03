@@ -3,10 +3,10 @@ from typing import Any, Callable, Optional, TypeVar
 
 import torch
 import torch.nn as nn
-import tqdm
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
 from torch.utils.data import DataLoader
+from tqdm import tqdm
 
 T = TypeVar("T", bound=nn.Module)
 
